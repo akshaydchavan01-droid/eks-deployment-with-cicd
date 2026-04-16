@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Build Maven') {
             steps {
-                git 'https://github.com/ankit-jagtap-devops/eks-deployment-with-cicd.git'
+                git 'https://github.com/akshaydchavan01-droid/eks-deployment-with-cicd.git'
                 sh 'mvn clean install'
             }
         }
