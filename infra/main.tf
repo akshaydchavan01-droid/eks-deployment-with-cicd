@@ -1,11 +1,11 @@
-data "aws_vpc" "default" {
-  default = true
+data "aws_vpc" "selected" {
+  id = "vpc-0d09ee699cc84cc8f"
 }
 
 data "aws_subnets" "available-subnets" {
   filter {
-    name = "vpc-02db77e71cf468080"
-    values = [data.aws_vpc.default.id]
+    name = "vpc-id"
+    values = [data.aws_vpc.selected.id]
   }
 
   filter {
@@ -16,6 +16,7 @@ data "aws_subnets" "available-subnets" {
 
 resource "aws_eks_cluster" "akshay-cluster-v01" {
   name     = "akshay-cluster-v01"
+  version = "1.35"
   role_arn = aws_iam_role.example.arn
 
   vpc_config {
@@ -31,21 +32,21 @@ resource "aws_eks_cluster" "akshay-cluster-v01" {
 }
 
 output "endpoint" {
-  value = aws_eks_cluster.ankit-cluster.endpoint
+  value = aws_eks_cluster.akshay-cluster-v01.endpoint
 }
 
 output "kubeconfig-certificate-authority-data" {
-  value = aws_eks_cluster.ankit-cluster.certificate_authority[0].data
+  value = aws_eks_cluster.akshay-cluster-v01.certificate_authority[0].data
 }
 
 resource "aws_eks_node_group" "node-grp" {
   cluster_name    = aws_eks_cluster.akshay-cluster-v01.name
-  node_group_name = "pc-node-group-v01"
+  node_group_name = "pc-node-group"
   node_role_arn   = aws_iam_role.worker.arn
   subnet_ids      = data.aws_subnets.available-subnets.ids
   capacity_type   = "ON_DEMAND"
   disk_size       = "20"
-  instance_types  = ["t3.micro"]
+  instance_types  = ["t3.medium"]
   labels = tomap({ env = "dev" })
 
   scaling_config {
