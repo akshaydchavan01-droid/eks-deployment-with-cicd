@@ -14,10 +14,30 @@ spec:
     spec:
       containers:
         - name: spring-boot-k8s
-          image: ankitjagtap/devops-integration # Image that will be used to containers in the cluster
-          imagePullPolicy: IfNotPresent
+          image: akshay1280/devops-integration # Image that will be used to containers in the cluster
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080 # The port that the container is running on in the cluster
+            - containerPort: 8081
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+            initialDelaySeconds: 45
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
 
 
 ---
