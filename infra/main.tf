@@ -10,7 +10,7 @@ data "aws_vpc" "selected" {
 # -------------------------------
 resource "aws_eks_cluster" "akshay_cluster" {
   name     = "akshay-cluster-v01"
-  version  = "1.29"   # ✅ supported version
+  version  = "1.35"   # ✅ supported version
   role_arn = aws_iam_role.example.arn
 
   vpc_config {
