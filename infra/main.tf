@@ -6,23 +6,12 @@ data "aws_vpc" "selected" {
 }
 
 # -------------------------------
-# EXISTING IAM ROLES
-# -------------------------------
-data "aws_iam_role" "example" {
-  name = "eks-cluster-example"
-}
-
-data "aws_iam_role" "worker" {
-  name = "eks-node-role"
-}
-
-# -------------------------------
 # EKS Cluster
 # -------------------------------
 resource "aws_eks_cluster" "akshay-cluster-v01" {
   name     = "akshay-cluster-v01"
   version  = "1.29"
-  role_arn = data.aws_iam_role.example.arn
+  role_arn = data.aws_iam_role.example.arn   # coming from iam.tf
 
   vpc_config {
     subnet_ids = [
@@ -49,7 +38,7 @@ output "kubeconfig-certificate-authority-data" {
 resource "aws_eks_node_group" "node_grp" {
   cluster_name    = aws_eks_cluster.akshay-cluster-v01.name
   node_group_name = "pc-node-group"
-  node_role_arn   = data.aws_iam_role.worker.arn
+  node_role_arn   = data.aws_iam_role.worker.arn   # coming from iam.tf
 
   subnet_ids = [
     "subnet-037acdc7d99f02d7c",
