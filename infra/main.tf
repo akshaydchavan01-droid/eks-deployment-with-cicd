@@ -2,7 +2,7 @@
 # VPC (your existing VPC)
 # -------------------------------
 data "aws_vpc" "selected" {
-  id = "vpc-0d09ee699cc84cc8f"
+  id = "vpc-001e55bfb31545b4e"
 }
 
 # -------------------------------
@@ -15,8 +15,8 @@ resource "aws_eks_cluster" "akshay_cluster" {
 
   vpc_config {
     subnet_ids = [
-      "subnet-0563897eb2258addb",
-      "subnet-0378c45c056a86558"
+      "subnet-01f981e11ee34f760",
+      "subnet-0b37fc830bfcb1afb"
     ]
   }
 
@@ -46,8 +46,8 @@ resource "aws_eks_node_group" "node_grp" {
   node_role_arn   = aws_iam_role.worker.arn
 
   subnet_ids = [
-    "subnet-0563897eb2258addb",
-    "subnet-0378c45c056a86558"
+    "subnet-0b37fc830bfcb1afb",
+    "subnet-01f981e11ee34f760"
   ]
 
   capacity_type  = "ON_DEMAND"
