@@ -3,8 +3,8 @@ pipeline {
     parameters {
         choice(
             name: 'ACTION', 
-            choices: ['apply', 'destroy'], 
-            description: 'Choose action: apply to create resources, destroy to delete resources'
+            choices: ['apply'], 
+            description: 'Choose action: apply to create resources'
         )
     }
     environment {
@@ -51,9 +51,6 @@ pipeline {
                         if (params.ACTION == 'apply') {
                             echo 'Executing Apply...'
                             sh 'terraform apply --auto-approve'
-                        } else if (params.ACTION == 'destroy') {
-                            echo 'Executing Destroy...'
-                            sh 'terraform destroy --auto-approve'
                         } else {
                             error 'Unknown action'
                         }
