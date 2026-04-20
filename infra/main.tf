@@ -8,7 +8,7 @@ data "aws_vpc" "selected" {
 # -------------------------------
 # EKS Cluster
 # -------------------------------
-resource "aws_eks_cluster" "akshay_cluster" {
+resource "aws_eks_cluster" "akshay-cluster-v01" {
   name     = "akshay-cluster-v01"
   version  = "1.35"   # ✅ supported version
   role_arn = aws_iam_role.example.arn
