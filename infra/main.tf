@@ -30,18 +30,18 @@ resource "aws_eks_cluster" "akshay-cluster-v01" {
 # Outputs
 # -------------------------------
 output "endpoint" {
-  value = aws_eks_cluster.akshay_cluster.endpoint
+  value = aws_eks_cluster.akshay-cluster-v01.endpoint
 }
 
 output "kubeconfig-certificate-authority-data" {
-  value = aws_eks_cluster.akshay_cluster.certificate_authority[0].data
+  value = aws_eks_cluster.akshay-cluster-v01.certificate_authority[0].data
 }
 
 # -------------------------------
 # Node Group
 # -------------------------------
 resource "aws_eks_node_group" "node_grp" {
-  cluster_name    = aws_eks_cluster.akshay_cluster.name
+  cluster_name    = aws_eks_cluster.akshay-cluster-v01.name
   node_group_name = "pc-node-group"
   node_role_arn   = aws_iam_role.worker.arn
 
