@@ -1,7 +1,3 @@
-## ✅ Correct Jenkinsfile (clean version)
-
-Use this EXACT code 👇 (no backticks)
-
 ```groovy id="goodcode"
 pipeline {
     agent any
