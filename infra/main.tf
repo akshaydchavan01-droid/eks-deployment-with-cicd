@@ -10,7 +10,7 @@ data "aws_vpc" "selected" {
 # -------------------------------
 resource "aws_eks_cluster" "akshay-cluster-v01" {
   name     = "akshay-cluster-v01"
-  version  = "1.29"
+  version  = "1.33"
   role_arn = data.aws_iam_role.example.arn   # coming from iam.tf
 
   vpc_config {
